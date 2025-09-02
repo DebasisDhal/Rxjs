@@ -35,4 +35,11 @@ export class Part3Component implements OnInit {
       console.log("courceDuration",res);
     })
   }
+  getUser(id:number){
+    this.master.getUserById(id).subscribe((res:any)=>{
+      console.log("userDetails",res);
+    });
+
+  }
+
 }
