@@ -27,6 +27,14 @@ getUserById(id: number): Observable<any> { // caching implementation
   }
   return this.userDetails.get(id)!; // ensure non-null return
 }
+gertusers(){
+   return this.http.get("https://jsonplaceholder.typicode.com/users");
+}
 
+getPost(){
+
+    const posts = this.http.get("https://jsonplaceholder.typicode.com/posts");
+    return posts;
+}
 
 }
