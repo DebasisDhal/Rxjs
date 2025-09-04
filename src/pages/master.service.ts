@@ -36,5 +36,8 @@ getPost(){
     const posts = this.http.get("https://jsonplaceholder.typicode.com/posts");
     return posts;
 }
+getSearchData(query:string){
+  return this.http.get("https://dummyjson.com/products/search?q="+query);
+}
 
 }

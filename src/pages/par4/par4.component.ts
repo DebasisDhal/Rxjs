@@ -1,17 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, of, switchMap } from 'rxjs';
 import { MasterService } from '../master.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-par4',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './par4.component.html',
   styleUrl: './par4.component.css'
 })
 export class Par4Component {
 
   master = inject(MasterService);
+  searchcontrol =new FormControl('');
 
   constructor(){
   var  stateData$ = of(['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']);
@@ -42,7 +44,30 @@ export class Par4Component {
   forkJoin([this.master.gertusers(),this.master.getPost()]).subscribe(result=>{ //Here both api call in single call
     console.log(result  ,"forkjoin users and posts");
   });
-
+  // this.searDAta();
+  this.searchWithMapData();
   }
+  
+  // here multiple api call for each character
+
+  // searDAta(){ 
+  // this.searchcontrol.valueChanges.subscribe((res:any)=>{
+  //   console.log(res);
+  //   this.master.getSearchData(res).subscribe((response:any)=>{
+  //     console.log(response);
+  //   });
+
+  // });
+// }
+
+  // here single api call for each character Help of switchmap
+searchWithMapData() {
+  this.searchcontrol.valueChanges.pipe(
+    switchMap((search: string | null) => this.master.getSearchData(search ?? ''))
+  ).subscribe((res: any) => {
+    console.log(res);
+  });
+}
+
 
 }
