@@ -1,2 +1,12 @@
 <p>par4 works!</p>
 <input type="text" [formControl]="searchcontrol" placeholder="Search..."/>
+
+
+<button (click)="onLogin()">Get Users</button>
+
+
+//ForkJoin =>  all api call complete then only give response | with static observables | with api call 
+//switchmap => cancel previous api call and take latest api call | button click | value change searching api call
+//mergemap => multiple api call for each value | nested api call
+//concatmap => Nested api calls | sequentially api call
+//exhaustmap => ignore multiple api call | Login api call
